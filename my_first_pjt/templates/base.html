@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MY DJANGO{% endblock title %}</title>
+    {% block head %}{% endblock head %}
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            {% if request.user.is_authenticated %}
+                <h3>Welcome, {{ request.user.username }}!</h3>
+                <ul>
+                    <li>
+                        <form action="{% url 'logout' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">로그아웃</button>
+                        </form>
+                    </li>
+                    <li><a href="{% url 'update' %}">프로필 업데이트</a></li>
+                    <li>
+                        <form action="{% url 'delete' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit">회원 탈퇴</button>
+                        </form>
+                    </li>
+                </ul>
+            {% else %}
+                <ul>
+                    <li><a href="{% url 'login' %}">로그인</a></li>
+                    <li><a href="{% url 'signup' %}">회원가입</a></li>
+                </ul>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock content %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 MY DJANGO. All rights reserved.</p>
+    </footer>
+</body>
+</html>

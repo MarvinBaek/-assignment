@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Post List{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>게시판</h1>
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a> - {{ post.author }} on {{ post.created_at }}
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'post_create' %}">새로운 글 작성</a>
+    {% else %}
+        <p>게시판이 보고싶다면 <a href="{% url 'login' %}">로그인</a>하십시오.</p>
+    {% endif %}
+{% endblock %}

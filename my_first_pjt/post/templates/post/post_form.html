@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>새로운 글 작성</title>
+</head>
+<body>
+    <h1>새로운 글 작성</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- 폼 필드를 렌더링 -->
+        <button type="submit">글 올리기</button>
+    </form>
+    <a href="{% url 'post_list' %}">게시판으로</a>
+</body>
+</html>
